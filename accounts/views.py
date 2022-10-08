@@ -10,7 +10,7 @@ from zcore.decorators import unauthenticated_user
 def register(request):
 	if request.method == "POST":
 		username = request.POST['username'].lower()
-		group_name = request.POST['group'].lower()
+		# group_name = request.POST['group'].lower()
 		password = request.POST['password']
 		password2 = request.POST['password2']
 
@@ -25,10 +25,9 @@ def register(request):
 				else:
 					user = User.objects.create_user(username=username, password=password)
 					user.is_active = False
-					group = Group.objects.get(name=group_name)
-					user.groups.add(group)
+					# group = Group.objects.get(name="default")
+					# user.groups.add(group)
 					user.save()
-
 					messages.success(request, "Successfully registered! wait for an admin to approve your account")
 					user.save()
 					return redirect('login')
@@ -45,8 +44,8 @@ def register(request):
 		else:
 			user = User.objects.create_user(username=username, password=password)
 			user.is_active = False
-			group = Group.objects.get(name=group_name)
-			user.groups.add(group)
+			# group = Group.objects.get(name=group_name)
+			# user.groups.add(group)
 			user.save()
 			messages.success(request, 'Account created')
 			user.save()
@@ -66,15 +65,26 @@ def login_view(request):
 		if user is not None and user.is_active:
 			login(request, user)
 			messages.success(request, 'Successfully logged in')
-			return redirect('home')
+			if user.is_superuser:
+				return redirect('home')
+			return redirect('dashboard')
 		else:
 			print("invalid credentials")
 			messages.error(request, 'Invalid credentials')
 			return redirect('login')
 	context = {
-
+	
 	}
 	return render(request, 'login.html', context)
+
+def dashboard(request):
+	return render(request, 'dashboard.html')
+
+def adminregister(request):
+	return render(request, 'adminregister.html')
+
+def adminlogin(request):
+	return render(request, 'adminlogin.html')
 
 
 @login_required(login_url="login")

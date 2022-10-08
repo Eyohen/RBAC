@@ -1,143 +1,232 @@
-{% load static %}
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.101.0">
-    <title>Platform</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-    crossorigin="anonymous"></script>
-
-
-
+    <meta charset="utf-8" />
+    <title>CBN ML Pipeline Management </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A project management Bootstrap theme by Medium Rare"
+    />
+    {% comment %}
+    <link
+      href="https://cbn-assets-ui.s3.amazonaws.com/assets/img/favicon.ico"
+      rel="icon"
+      type="image/x-icon"
+    />
+    {% endcomment %}
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Gothic+A1"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cbn-assets-ui.s3.amazonaws.com/assets/css/theme.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    {% comment %} {% include 'style.html' %} {% endcomment %}
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+      .custom-nav {
+        background-color: #ffffff !important;
       }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
+      .nav-link {
+        color: black !important;
       }
 
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      .nav-link:hover {
+        color: #48b68e;
       }
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
+      .custom-button {
+        background: #48b68e !important;
+        border: #48b68e !important;
       }
 
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
+      .custom-button-text {
+        color: #48b68e !important;
       }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
+      .custom-color {
       }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
+      .custom-sub-card-header {
+        background-color: #f5f8fa;
       }
     </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
   </head>
+
   <body>
-    
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Platform</a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="{% url 'add_new_group' %}">Add group</a>
-      <a class="nav-link px-3" href="{% url 'logout' %}">Sign out</a>
+    <div class="layout layout-nav-top">
+      <div
+        class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top custom-nav shadow"
+      >
+        <a class="navbar-brand" href="index.html">
+          <img
+            alt="Pipeline"
+            src="https://cbn-assets-ui.s3.amazonaws.com/assets/img/logo.svg"
+          />
+        </a>
+        <div class="d-flex align-items-center">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar-collapse"
+            aria-controls="navbar-collapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="d-block d-lg-none ml-2">
+            <div class="dropdown">
+              <a
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class=" text-success h4 bi bi-list"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item text-success">Log out</a>
+                <a class="dropdown-item text-success" href="{% url 'add_new_group' %}"  >Add Model</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="collapse navbar-collapse justify-content-between" id="navbar-collapse">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="">Admin</a>
+            </li>
+
+          
+
+          </ul>
+          <div class="d-lg-flex align-items-center">
+            <ul class="navbar-nav">
+  
+              
+             
+  
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'add_new_group' %}"  >Add Model</a>
+              </li>
+ 
+              <li class="nav-item">
+                <a class="nav-link text-black" href="{% url 'logout' %}">logout</a>
+              </li>
+
+            </ul>
+            
+            
+          </div>
+        </div>
+      </div>
+
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+         
+          <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"
+          >
+            <h1 class="h2">Users</h1>
+          </div>
+          <div class="card">
+          <div class="table-responsive px-3 pt-4 pb-3">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                 
+                  <th scope="col">Username</th>
+                  <th scope="col">Active</th>
+                  <th scope="col">Admin Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in users %}
+                <tr>
+                  
+                  <td>
+                    <span style="font-size: 0.7rem" class="rounded-circle text-uppercase p-2 bg-secondary text-white">
+                      {{ user.username | slice:"2"  }}
+                    </span>
+                    <span class="ml-2">{{ user.username }}</span>
+                  </td>
+                  <td>{{ user.is_active }}</td>
+                  <td>
+                    {%if user.is_superuser%}
+                    yes
+                    {%else%}
+                    none
+                    {%endif%}
+                  </td>
+                  <td>
+                      <div class="dropdown mx-lg-2">
+                        <button class="btn btn-sm btn-block dropdown-toggle" type="button" id="newContentButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                          {%if user.is_active%}
+                          <a class="dropdown-item text-success" href="#">
+                            Approved
+                          </a>
+                          {%else%}
+                          <a class="dropdown-item" href="{% url 'approve_user_account' user.id %}">
+                            Approve User
+                          </a>
+                          {%endif%}
+                          <a class="dropdown-item text-black" href="{% url 'assign_user' user.id %}">Group Management</a>
+                          
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div>
+        </main>
+      </div>
     </div>
-  </div>
-</header>
-
-<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="position-sticky pt-3 sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              <span data-feather="home" class="align-text-bottom"></span>
-              Dashboard
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        {% include "alerts.html" %}
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Users</h1>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">username</th>
-              <th scope="col">active</th>
-              <th scope="col">action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for user in users %}
-            <tr>
-              <td>{{ user.id }}</td>
-              <td>{{ user.username }}</td>
-              <td>{{ user.is_active }}</td>
-              <td>
-               <a href="{% url 'approve_user_account' user.id %}"><button type="button" class="btn btn-sm btn-primary">approve</button></a>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
-</div>
+     <!-- Required vendor scripts (Do not remove) -->
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/jquery.min.js"></script>
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/popper.min.js"></script>
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/bootstrap.js"></script>
+ 
+     <!-- Optional Vendor Scripts (Remove the plugin script here and comment initializer script out of index.js if site does not use that feature) -->
+ 
+     <!-- Autosize - resizes textarea inputs as user types -->
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/autosize.min.js"></script>
+     <!-- Flatpickr (calendar/date/time picker UI) -->
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/flatpickr.min.js"></script>
+     <!-- Prism - displays formatted code boxes -->
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/prism.js"></script>
+     <!-- Shopify Draggable - drag, drop and sort items on page -->
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/draggable.bundle.legacy.js"></script>
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/swap-animation.js"></script>
+     <!-- Dropzone - drag and drop files onto the page for uploading -->
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/dropzone.min.js"></script>
+     <!-- List.js - filter list elements -->
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/list.min.js"></script>
+ 
+     <!-- Required theme scripts (Do not remove) -->
+     <script type="text/javascript" src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/theme.js"></script>
   </body>
+
 </html>

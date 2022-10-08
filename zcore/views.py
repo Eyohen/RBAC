@@ -5,9 +5,10 @@ from django.contrib.auth.decorators import login_required
 from .decorators import admin_only, allowed_users, unauthenticated_user
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.models import Group
+from zcore.models import Description
 
-# @login_required(login_url="login")
-@allowed_users(allowed_roles=["page1"])
+@login_required(login_url="login")
+@allowed_users(allowed_roles=["admin"])
 def home(request):
 	users = User.objects.all().exclude(username=request.user.username)
 	context = {
@@ -18,24 +19,45 @@ def home(request):
 # @unauthenticated_user
 @allowed_users(allowed_roles=["customer"])
 def customer_page(request):
+    
 	context = {
 		"message": "I am customer"
 	}
 	return render(request, "customer_page.html", context)
 
+# @allowed_users(allowed_roles=["pages"])
+login_required(login_url="login")
+def pages(request , page_name):
+    current_user = request.user
+    context = {
+		"message": current_user.groups.all()
+	}
+    if current_user.groups.filter(name=page_name).exists():
+        context = {
+			"message": page_name + " Is Available"
+		}
+        return render(request, "streamlit.html", context)
+    else:
+        context = {"message": "No Access"}
+    return render(request, "streamlit.html", context)
+
 @allowed_users(allowed_roles=["page1"])
 def page1(request):
 	context = {
-		"message": "I can only view page1"
+		"message": "You can only view page1"
 	}
 	return render(request, "page1.html", context)
 
 @allowed_users(allowed_roles=["page2"])
 def page2(request):
 	context = {
-		"message": "I can only view page2"
+		"message": "You can only view page2"
 	}
 	return render(request, "page2.html", context)
+
+
+def dashboard(request):
+	return render(request, "dashboard.html")
 
 
 @allowed_users(allowed_roles=["manager"])
@@ -61,6 +83,78 @@ def add_new_group(request):
 		messages.success(request, "group added successfully")
 		return redirect('home')
 	return render(request, "add_group.html")
+
+###################################
+
+@admin_only
+def add_model(request):
+	if request.method == "POST":
+		name = request.POST.get('name')
+		try:
+			print('hello')
+		except Exception as e :
+			pass
+			
+		current_stage = request.POST.get('current_stage')
+		version = request.POST.get('version')
+		model_author = request.POST.get('model_author')
+		model_url = request.POST.get('model_url')
+		# status = request.POST.get("status")
+		# last_updated = 
+  		
+		desc = request.POST.get("description")
+		new_group = Group.objects.create(name=name)
+		new_group.save()
+		new_desc = Description(
+			group=new_group,
+			current_stage=current_stage,
+			version=version,
+			model_author=model_author,
+			model_url=model_url,
+			description=desc,
+		)
+		new_desc.save()
+		
+		messages.success(request, "model added successfully")
+		return redirect('home')
+	return render(request, "add_group.html")
+
+#####################################
+
+
+@admin_only
+def assign_user(request,user_id):
+	if request.method == "POST":
+		pass
+	user = User.objects.get(id=user_id)
+	Allgroups = Group.objects.exclude(user=user)
+	
+	usergroups = user.groups.all()
+	username = user.username
+	context={
+		"groups" : Allgroups,
+		"usergroups" : usergroups, 
+		"username": username,
+		"user_id": user.id
+	}
+	return render(request, "assign_user.html" ,context)
+
+@admin_only 
+def add_user_group(request,group_name,user_id):
+	if request.method == "GET":
+		user = User.objects.get(id=user_id)
+		my_group = Group.objects.get(name=group_name)
+		my_group.user_set.add(user)
+	return redirect('assign_user', user_id=user_id)
+
+@admin_only 
+def remove_user_group(request,group_name,user_id):
+	if request.method == "GET":
+		user = User.objects.get(id=user_id)
+		my_group = Group.objects.get(name=group_name)
+		my_group.user_set.remove(user)
+	return redirect('assign_user', user_id=user_id)
+
 
 @admin_only
 @require_http_methods(['GET'])
